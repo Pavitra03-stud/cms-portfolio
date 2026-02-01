@@ -1,0 +1,115 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================= SANITY-CONTROLLED THEME ================= */
+/* These are FALLBACKS only – Sanity overrides them */
+:root {
+  --site-bg: linear-gradient(180deg, #020617, #1e3a8a);
+  --text-color: #e5e7eb;
+  --heading-color: #ffffff;
+  --accent-color: #ff7ab6;
+  --font-family: 'Poppins', sans-serif;
+  --base-font-size: 16px;
+}
+
+/* ================= BODY ================= */
+body {
+  font-family: var(--font-family);
+  font-size: var(--base-font-size);
+  background: var(--site-bg);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
+/* ================= APP LAYOUT ================= */
+.layout {
+  min-height: 100vh;
+  background: var(--site-bg);
+}
+
+/* ================= SECTIONS ================= */
+section {
+  width: 100%;
+  padding: 100px 0;
+  background: transparent; /* IMPORTANT */
+}
+
+/* ================= CENTER CONTAINER ================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+/* ================= TYPOGRAPHY ================= */
+h1,
+h2,
+h3 {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-color);
+  line-height: 1.7;
+}
+
+/* ================= IMAGES ================= */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn {
+  padding: 14px 34px;
+  border-radius: 30px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    #ffcc70
+  );
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.secondary-btn {
+  padding: 14px 34px;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  background: #000;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  section {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 70px 0;
+  }
+}

@@ -1,0 +1,106 @@
+/* =========================
+   SERVICES SECTION
+========================= */
+.services {
+  width: 100%;
+  padding: 100px 8%;
+  color: #ffffff;
+}
+
+/* =========================
+   TITLE
+========================= */
+.services-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  font-weight: 700;
+}
+
+.services-title span {
+  background: linear-gradient(90deg, #c850c0, #ffcc70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   GRID
+========================= */
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+/* =========================
+   CARD
+========================= */
+.service-card {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  border-color: #c850c0;
+  transform: translateY(-6px);
+}
+
+/* =========================
+   NUMBER
+========================= */
+.service-number {
+  font-size: 18px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+/* =========================
+   TITLE
+========================= */
+.service-card h3 {
+  font-size: 22px;
+  margin-bottom: 14px;
+  background: linear-gradient(90deg, #c850c0, #ffcc70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   TEXT
+========================= */
+.service-card p {
+  color: #cfcfcf;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .services-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .services {
+    padding: 80px 6%;
+  }
+
+  .services-title {
+    font-size: 2.2rem;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+  }
+}

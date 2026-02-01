@@ -1,0 +1,64 @@
+/* =========================
+   LAYOUT ROOT
+========================= */
+
+.layout {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--site-bg); /* 🔥 controlled by Sanity */
+  display: flex;
+}
+
+/* =========================
+   TOP NAV LAYOUT
+========================= */
+
+.layout-top {
+  flex-direction: column;
+}
+
+/* =========================
+   SIDE NAV LAYOUT
+========================= */
+
+.layout-side {
+  flex-direction: row;
+}
+
+/* When side nav is active, content shifts right */
+.layout-side .main-content {
+  margin-left: 200px; /* must match sidenav width */
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content {
+  width: 100%;
+  min-height: 100vh;
+  background: transparent; /* IMPORTANT */
+}
+
+/* =========================
+   SECTION SAFETY
+========================= */
+
+section {
+  background: transparent !important; /* prevent overrides */
+}
+
+/* =========================
+   RESPONSIVE FIXES
+========================= */
+
+@media (max-width: 768px) {
+  /* Disable side layout on mobile */
+  .layout-side {
+    flex-direction: column;
+  }
+
+  .layout-side .main-content {
+    margin-left: 0;
+  }
+}
