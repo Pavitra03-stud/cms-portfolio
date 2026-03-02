@@ -11,60 +11,124 @@
    TITLE
 ========================= */
 .portfolio-title {
-  text-align: center;
-  font-size: 3rem;
+  width: 100%;
   margin-bottom: 60px;
-  font-weight: 700;
+  display: flex;
 }
 
-.portfolio-title span {
-  background: linear-gradient(90deg, #c850c0, #ffcc70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.portfolio-title.left {
+  justify-content: flex-start;
+}
+
+.portfolio-title.center {
+  justify-content: center;
+}
+
+.portfolio-title.right {
+  justify-content: flex-end;
+}
+
+.portfolio-title * {
+  margin: 0;
 }
 
 /* =========================
-   GRID
+   GRID (CMS CONTROLLED)
 ========================= */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 40px;
+  justify-content: center; /* 🔥 important for 1 column centering */
+}
+
+/* 1 COLUMN (Centered + Limited Width) */
+.portfolio-grid.one {
+  grid-template-columns: minmax(320px, 600px);
+}
+
+/* 2 COLUMNS */
+.portfolio-grid.two {
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+}
+
+/* 3 COLUMNS */
+.portfolio-grid.three {
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
 }
 
 /* =========================
    CARD
 ========================= */
 .portfolio-card {
-  position: relative;
-  height: 220px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  transition: border-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .portfolio-card:hover {
-  border-color: #c850c0;
+  transform: translateY(-6px);
+}
+
+/* =========================
+   IMAGE WRAPPER
+========================= */
+.portfolio-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 /* =========================
    IMAGE
 ========================= */
-.portfolio-card img {
+.portfolio-img {
   width: 100%;
-  height: 100%;
+  height: 260px; /* 🔥 fixed height so images don’t become huge */
   object-fit: cover;
   display: block;
 }
 
 /* =========================
+   SHAPES
+========================= */
+.portfolio-image-wrapper.rectangle {
+  border-radius: 16px;
+}
+
+.portfolio-image-wrapper.square {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+}
+
+.portfolio-image-wrapper.circle {
+  border-radius: 50%;
+}
+
+.portfolio-image-wrapper.diamond {
+  transform: rotate(45deg);
+}
+
+.portfolio-image-wrapper.diamond img {
+  transform: rotate(-45deg);
+}
+
+.portfolio-image-wrapper.hexagon {
+  clip-path: polygon(
+    50% 0%,
+    93% 25%,
+    93% 75%,
+    50% 100%,
+    7% 75%,
+    7% 25%
+  );
+}
+
+/* =========================
    OVERLAY
 ========================= */
-.overlay {
+.portfolio-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.65);
 
   display: flex;
   flex-direction: column;
@@ -72,37 +136,27 @@
   justify-content: center;
 
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
-.portfolio-card:hover .overlay {
+.portfolio-image-wrapper:hover .portfolio-overlay {
   opacity: 1;
 }
 
-.overlay h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-  background: linear-gradient(90deg, #c850c0, #ffcc70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.overlay .links {
-  display: flex;
-  gap: 16px;
-}
-
-.overlay .links a {
-  color: #ffffff;
-  font-size: 14px;
-  text-decoration: none;
-  border: 1px solid #ffffff;
-  padding: 6px 14px;
+/* =========================
+   BUTTON
+========================= */
+.portfolio-btn {
+  padding: 8px 18px;
   border-radius: 20px;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
-.overlay .links a:hover {
+.portfolio-btn:hover {
   background: linear-gradient(90deg, #c850c0, #ffcc70);
   border-color: transparent;
   color: #000;
@@ -114,91 +168,43 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .portfolio-grid {
+  .portfolio-grid.two,
+  .portfolio-grid.three {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Mobile */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .portfolio {
-    padding: 80px 6%;
+    padding: 70px 6%;
   }
 
-  .portfolio-title {
-    font-size: 2.2rem;
-  }
-
-  .portfolio-grid {
+  .portfolio-grid.one,
+  .portfolio-grid.two,
+  .portfolio-grid.three {
     grid-template-columns: 1fr;
   }
 
-  .portfolio-card {
-    height: 200px;
+  .portfolio-img {
+    height: 220px;
   }
 }
-.projects {
-  padding: 100px 10%;
-  color: #fff;
+/* =========================
+   PROJECT ALIGNMENT
+========================= */
+
+.portfolio-card.left {
+  justify-self: start;
+  text-align: left;
 }
 
-.section-title {
-  font-size: 42px;
+.portfolio-card.center {
+  justify-self: center;
   text-align: center;
-  margin-bottom: 60px;
 }
 
-.section-title span {
-  background: linear-gradient(90deg, #ff77c6, #ffb86c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-.portfolio-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  cursor: pointer;
-}
-
-/* IMAGE */
-.portfolio-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.4s ease;
-}
-
-/* OVERLAY */
-.portfolio-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-/* TITLE */
-.portfolio-overlay h3 {
-  color: #fff;
-  font-size: 22px;
-  text-align: center;
-  padding: 0 16px;
-}
-
-/* HOVER EFFECT */
-.portfolio-image-wrapper:hover .portfolio-img {
-  transform: scale(1.08);
-}
-
-.portfolio-image-wrapper:hover .portfolio-overlay {
-  opacity: 1;
+.portfolio-card.right {
+  justify-self: end;
+  text-align: right;
 }

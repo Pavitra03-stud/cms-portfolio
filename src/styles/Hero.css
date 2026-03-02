@@ -1,56 +1,71 @@
-/* ================= HERO ================= */
+/* ================= HERO SECTION ================= */
 
 .hero {
-  min-height: calc(100vh - 20px);
   width: 100%;
-  padding: 10px 5%;
-
+  min-height: 100vh;                 /* 🔥 FULL SCREEN */
+  padding: 0 8%;
   display: flex;
-  flex-direction: column;   /* 🔥 IMPORTANT */
-  align-items: center;
-  justify-content: center;
+  align-items: center;               /* 🔥 vertical center */
+  background-size: cover;
+}
 
+/* ================= CONTAINER ================= */
+
+.hero-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* ===== Image Right / Left ===== */
+
+.hero-content.reverse {
+  flex-direction: row-reverse;
+}
+
+/* ===== Column Layout ===== */
+
+.hero-content.column {
+  flex-direction: column;
   text-align: center;
-  background-color: #2b74a8;
-  color: #ffffff;
+}
+
+.hero-content.column-reverse {
+  flex-direction: column-reverse;
+  text-align: center;
 }
 
 /* ================= IMAGE ================= */
 
+.hero-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .hero-img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 4px solid #ffffff;
+  width: 320px;
+  height: 320px;
   object-fit: cover;
-  margin-bottom: 25px;
+  border-radius: 50%;
+  border: 4px solid white;
 }
 
 /* ================= TEXT ================= */
 
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-
-.hero-role {
-  font-size: 22px;
-  margin-bottom: 18px;
-}
-
 .hero-text {
-  max-width: 720px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #e6e6e6;
+  flex: 1;
+  max-width: 650px;
 }
 
-/* ================= GRADIENT ================= */
-
-.gradient-text {
-  background: linear-gradient(90deg, #c850c0, #ffcc70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* 🔥 Remove default heading margins */
+.hero-text h1,
+.hero-text h2,
+.hero-text h3,
+.hero-text p {
+  margin: 12px 0;
 }
 
 /* ================= BUTTONS ================= */
@@ -59,62 +74,91 @@
   margin-top: 30px;
   display: flex;
   gap: 20px;
-}
-
-.primary-btn {
-  padding: 14px 34px;
-  border-radius: 30px;
-  background: linear-gradient(90deg, #c850c0, #ffcc70);
-  color: #fff;
-  text-decoration: none;
-}
-
-.secondary-btn {
-  padding: 14px 34px;
-  border-radius: 30px;
-  border: 1px solid #fff;
-  color: #fff;
-  text-decoration: none;
+  justify-content: center;   /* 🔥 centers buttons horizontally */
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 32px;
+@media (max-width: 900px) {
+
+  .hero {
+    min-height: auto;
+    padding: 80px 6%;
+  }
+
+  .hero-content {
+    flex-direction: column !important;
+    text-align: center;
   }
 
   .hero-img {
-    width: 160px;
-    height: 160px;
+    width: 240px;
+    height: 240px;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    width: 100%;
+    justify-content: center;
   }
+}
+/* =========================
+   HERO SECTION
+========================= */
 
-  .hero-buttons a {
-    width: 100%;
+.hero {
+  width: 100%;
+  min-height: 100vh; /* 🔥 makes section fill screen */
+  padding: 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CONTENT CONTAINER */
+.hero-content {
+  width: 100%;
+  max-width: 1200px;  /* 🔥 prevents stretching */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* TEXT */
+.hero-text {
+  flex: 1;
+}
+
+/* IMAGE WRAPPER */
+.hero-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* IMAGE */
+.hero-img {
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
+}
+@media (max-width: 992px) {
+  .hero-content {
+    flex-direction: column;
     text-align: center;
   }
-}
-.hero-tagline {
-  max-width: 650px;
-  margin: 20px auto;
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text-color);
-}
 
-.hero-tagline strong {
-  font-weight: 700;
-}
+  .hero-text {
+    order: 2;
+  }
 
-.hero-tagline em {
-  font-style: italic;
-}
+  .hero-image-wrapper {
+    order: 1;
+  }
 
-.hero-tagline u {
-  text-decoration: underline;
+  .hero-img {
+    width: 260px;
+    height: 260px;
+  }
 }

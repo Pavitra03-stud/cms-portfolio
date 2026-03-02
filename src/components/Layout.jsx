@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // 🎨 Site settings
+    //  Site settings
     client.fetch(siteQuery).then((data) => {
       if (!data) return;
       const root = document.documentElement;
@@ -35,13 +35,13 @@ const Layout = ({ children }) => {
       root.style.setProperty("--site-bg", data.backgroundColor || "#000");
     });
 
-    // 🧭 Navigation layout
+    //  Navigation layout
     client.fetch(navQuery).then((nav) => {
       if (nav?.layout) setLayout(nav.layout);
       setLoaded(true);
     });
 
-    // 📱 Mobile detection
+    //  Mobile detection
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className={`layout layout-${layout}`}>
-      {/* 🔥 NAVIGATION RULES */}
+      {/*  NAVIGATION RULES */}
 
       {/* Desktop */}
       {!isMobile && layout === "top" && <Navbar isMobile={false} />}

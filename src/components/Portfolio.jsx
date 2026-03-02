@@ -2,107 +2,137 @@ import "../styles/Portfolio.css";
 import { useEffect, useState } from "react";
 import client from "../sanityClient";
 import imageUrlBuilder from "@sanity/image-url";
+import { PortableText } from "@portabletext/react";
 
-/* ================= IMAGE BUILDER ================= */
 const builder = imageUrlBuilder(client);
 const urlFor = (source) => builder.image(source);
 
-/* ================= SANITY QUERIES ================= */
-const projectSectionQuery = `*[_type=="projectSection"][0]{
+/* ================= QUERY ================= */
+const portfolioQuery = `*[_type=="portfolio"][0]{
   heading,
-  subheading,
+  headingAlign,
+  gridLayout,
+  textAlign,
+  backgroundColor,
   showSection,
-  typography{
-    fontFamily,
-    fontSize,
-    headingColor,
-    textColor
+  projects[]{
+    _key,
+    title,
+    description,
+    image{
+      asset->
+    },
+    imageShape,
+    alignment,     // 🔥 NEW (per project alignment)
+    projectUrl,
+    showProject
   }
 }`;
 
-const projectsQuery = `*[_type=="project"]{
-  _id,
-  title,
-  description,
-  image,
-  projectUrl
-}`;
+/* ================= PORTABLE TEXT ================= */
+const portableComponents = {
+  block: {
+    normal: ({ children }) => <p>{children}</p>,
+    h1: ({ children }) => <h1>{children}</h1>,
+    h2: ({ children }) => <h2>{children}</h2>,
+    h3: ({ children }) => <h3>{children}</h3>,
+    blockquote: ({ children }) => (
+      <blockquote className="portfolio-quote">{children}</blockquote>
+    ),
+  },
+};
 
-/* ================= COMPONENT ================= */
 const Portfolio = () => {
-  const [section, setSection] = useState(null);
-  const [projects, setProjects] = useState([]);
+  const [portfolio, setPortfolio] = useState(null);
 
   useEffect(() => {
-    client.fetch(projectSectionQuery).then(setSection);
-    client.fetch(projectsQuery).then(setProjects);
+    client.fetch(portfolioQuery).then(setPortfolio);
   }, []);
 
-  if (!section?.showSection) return null;
+  if (!portfolio?.showSection) return null;
 
   return (
     <section
       className="portfolio"
       id="projects"
       style={{
-        fontFamily: section?.typography?.fontFamily,
-        fontSize: section?.typography?.fontSize,
-        color: section?.typography?.textColor,
+        backgroundColor: portfolio.backgroundColor || "transparent",
+        textAlign: portfolio.textAlign || "left",
       }}
     >
-      {/* ================= SECTION HEADING ================= */}
-      <h2
-        className="portfolio-title"
-        style={{ color: section?.typography?.headingColor }}
-      >
-        {section.heading?.split(" ")[0]}{" "}
-        <span>{section.heading?.split(" ").slice(1).join(" ")}</span>
-      </h2>
-
-      {section.subheading && (
-        <p
-          className="portfolio-subtitle"
-          style={{ color: section?.typography?.textColor }}
+      {/* ================= HEADING ================= */}
+      {portfolio.heading && (
+        <div
+          className={`portfolio-title ${
+            portfolio.headingAlign || "center"
+          }`}
         >
-          {section.subheading}
-        </p>
+          <PortableText
+            value={portfolio.heading}
+            components={portableComponents}
+          />
+        </div>
       )}
 
-      {/* ================= PROJECT GRID ================= */}
-      <div className="portfolio-grid">
-        {projects.map((project) => (
-          <div className="portfolio-card" key={project._id}>
-            {/* IMAGE + OVERLAY */}
-            <div className="portfolio-image-wrapper">
-              {project.image && (
-                <>
+      {/* ================= GRID ================= */}
+      <div
+        className={`portfolio-grid ${
+          portfolio.gridLayout || "three"
+        }`}
+      >
+        {portfolio.projects
+          ?.filter((project) => project.showProject)
+          .map((project) => (
+            <div
+              key={project._key}
+              className={`portfolio-card ${
+                project.alignment || "center"
+              }`}
+            >
+              <div
+                className={`portfolio-image-wrapper ${
+                  project.imageShape || "rectangle"
+                }`}
+              >
+                {project.image?.asset && (
                   <img
-                    src={urlFor(project.image).width(600).url()}
-                    alt={project.title}
+                    src={urlFor(project.image).width(800).url()}
+                    alt="Project"
                     className="portfolio-img"
                   />
+                )}
 
-                  {/* OVERLAY TITLE (OLD UI STYLE) */}
-                  <div className="portfolio-overlay">
-                    <h3>{project.title}</h3>
-                  </div>
-                </>
+                <div className="portfolio-overlay">
+                  {project.title && (
+                    <PortableText
+                      value={project.title}
+                      components={portableComponents}
+                    />
+                  )}
+
+                  {project.projectUrl && (
+                    <a
+                      href={project.projectUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="portfolio-btn"
+                    >
+                      View Project
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {project.description && (
+                <div className="portfolio-description">
+                  <PortableText
+                    value={project.description}
+                    components={portableComponents}
+                  />
+                </div>
               )}
             </div>
-
-            {/* OPTIONAL LINK */}
-            {project.projectUrl && (
-              <a
-                href={project.projectUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="project-link"
-              >
-                View Project →
-              </a>
-            )}
-          </div>
-        ))}
+          ))}
       </div>
     </section>
   );
