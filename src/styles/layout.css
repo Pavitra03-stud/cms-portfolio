@@ -5,7 +5,7 @@
 .layout {
   min-height: 100vh;
   width: 100%;
-  background: var(--site-bg); /* 🔥 controlled by Sanity */
+  background: var(--site-bg);
   display: flex;
 }
 
@@ -25,9 +25,8 @@
   flex-direction: row;
 }
 
-/* When side nav is active, content shifts right */
 .layout-side .main-content {
-  margin-left: 200px; /* must match sidenav width */
+  margin-left: 200px; 
 }
 
 /* =========================
@@ -45,7 +44,7 @@
 ========================= */
 
 section {
-  background: transparent !important; /* prevent overrides */
+  background-color: transparent;
 }
 
 /* =========================
@@ -53,7 +52,6 @@ section {
 ========================= */
 
 @media (max-width: 768px) {
-  /* Disable side layout on mobile */
   .layout-side {
     flex-direction: column;
   }

@@ -49,3 +49,29 @@
   text-decoration: none;
   font-weight: 500;
 }
+/* ================= SIDE MENU ================= */
+
+.side-menu a{
+    display:block;
+    color:#ffffff !important;
+    text-decoration:none;
+    font-size:17px;
+    font-weight:500;
+    padding:12px 24px;
+    transition:.3s;
+}
+
+.side-menu a:visited{
+    color:#ffffff !important;
+}
+
+.side-menu a:hover{
+    color:#D4A017 !important;
+    background:rgba(212,160,23,.12);
+    border-radius:8px;
+}
+
+.side-menu a.active{
+    color:#D4A017 !important;
+    background:rgba(212,160,23,.18);
+}

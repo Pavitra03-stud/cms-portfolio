@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import SideNavbar from "./SideNavbar";
 import "../styles/layout.css";
 
+/* ================= QUERIES ================= */
+
 const siteQuery = `*[_type=="siteSettings"][0]{
   typography {
     fontFamily,
@@ -17,37 +19,72 @@ const siteQuery = `*[_type=="siteSettings"][0]{
 
 const navQuery = `*[_type=="navigation"][0]{ layout }`;
 
-const Layout = ({ children }) => {
+/* 🔥 DYNAMIC PAGES */
+const pagesQuery = `*[_type=="page" && showInNavbar==true] | order(_createdAt asc){
+  title,
+  "slug": slug.current
+}`;
+
+/* ================= COMPONENT ================= */
+
+const Layout = ({ children, customMenu = null }) => {
   const [loaded, setLoaded] = useState(false);
   const [layout, setLayout] = useState("top");
   const [isMobile, setIsMobile] = useState(false);
+  const [pages, setPages] = useState([]);
 
   useEffect(() => {
-    //  Site settings
+    /* ================= SITE SETTINGS ================= */
     client.fetch(siteQuery).then((data) => {
       if (!data) return;
+
       const root = document.documentElement;
-      root.style.setProperty("--font-family", data.fontFamily || "inherit");
-      root.style.setProperty("--base-font-size", data.baseFontSize || "16px");
-      root.style.setProperty("--heading-color", data.headingColor || "#fff");
-      root.style.setProperty("--text-color", data.textColor || "#ddd");
-      root.style.setProperty("--accent-color", data.accentColor || "#ff7ab6");
-      root.style.setProperty("--site-bg", data.backgroundColor || "#000");
+
+      root.style.setProperty(
+        "--font-family",
+        data.typography?.fontFamily || "inherit"
+      );
+      root.style.setProperty(
+        "--base-font-size",
+        data.typography?.baseFontSize || "16px"
+      );
+      root.style.setProperty(
+        "--heading-color",
+        data.typography?.headingColor || "#fff"
+      );
+      root.style.setProperty(
+        "--text-color",
+        data.typography?.textColor || "#ddd"
+      );
+      root.style.setProperty(
+        "--accent-color",
+        data.typography?.accentColor || "#ff7ab6"
+      );
+      root.style.setProperty(
+        "--site-bg",
+        data.backgroundColor || "#000"
+      );
     });
 
-    //  Navigation layout
+    /* ================= NAVIGATION LAYOUT ================= */
     client.fetch(navQuery).then((nav) => {
-      if (nav?.layout) setLayout(nav.layout);
+      setLayout(nav?.layout || "top");
       setLoaded(true);
     });
 
-    //  Mobile detection
+    /* ================= FETCH PAGES ================= */
+    client.fetch(pagesQuery).then((data) => {
+      setPages(data || []);
+    });
+
+    /* ================= MOBILE DETECTION ================= */
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -55,16 +92,35 @@ const Layout = ({ children }) => {
 
   return (
     <div className={`layout layout-${layout}`}>
-      {/*  NAVIGATION RULES */}
 
-      {/* Desktop */}
-      {!isMobile && layout === "top" && <Navbar isMobile={false} />}
-      {!isMobile && layout === "side" && <SideNavbar />}
+      {/* ================= NAVIGATION ================= */}
 
-      {/* Mobile → ALWAYS hamburger */}
-      {isMobile && <Navbar isMobile={true} />}
+      {/* Desktop Top */}
+      {!isMobile && layout === "top" && (
+        <Navbar
+          isMobile={false}
+          pages={pages}
+          customMenu={customMenu} // 🔥 NEW
+        />
+      )}
 
+      {/* Desktop Side */}
+      {!isMobile && layout === "side" && (
+        <SideNavbar pages={pages} />
+      )}
+
+      {/* Mobile */}
+      {isMobile && (
+        <Navbar
+          isMobile={true}
+          pages={pages}
+          customMenu={customMenu} // NEW
+        />
+      )}
+
+      {/* ================= CONTENT ================= */}
       <main className="main-content">{children}</main>
+
     </div>
   );
 };

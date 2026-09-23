@@ -1,98 +1,110 @@
-/* ================= ABOUT SECTION ================= */
+/* =====================================================
+   ABOUT SECTION
+===================================================== */
 
-.about {
-  width: 100%;
-  padding: 100px 8%;
+.about{
+    width:100%;
+    padding:80px 20px;
+    box-sizing:border-box;
 }
 
-/* ================= HEADING ================= */
-
-.about-title {
-  width: 100%;
-  margin-bottom: 60px;
-  display: flex;
+.about-container{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
 }
 
-/* Alignment from CMS */
-.about-title.left {
-  justify-content: flex-start;
+/* =====================================================
+   TITLE
+===================================================== */
+
+.about-title{
+    width:100%;
+    display:flex;
+    margin-bottom:40px;
 }
 
-.about-title.center {
-  justify-content: center;
+.about-title.left{
+    justify-content:flex-start;
+    text-align:left;
 }
 
-.about-title.right {
-  justify-content: flex-end;
+.about-title.center{
+    justify-content:center;
+    text-align:center;
 }
 
-/* Remove default spacing */
-.about-title * {
-  margin: 0;
+.about-title.right{
+    justify-content:flex-end;
+    text-align:right;
 }
 
-/* ================= CONTENT LAYOUT ================= */
-
-.about-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
+.about-title *{
+    margin:0;
 }
 
-/* IMAGE RIGHT */
-.about-content.reverse {
-  flex-direction: row-reverse;
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.about-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
 }
 
-/* IMAGE TOP */
-.about-content.column {
-  flex-direction: column;
+.about-content.reverse{
+    flex-direction:row-reverse;
 }
 
-/* IMAGE BOTTOM */
-.about-content.column-reverse {
-  flex-direction: column-reverse;
+.about-content.column{
+    flex-direction:column;
 }
 
-/* ================= IMAGE ================= */
-
-.about-image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.about-content.column-reverse{
+    flex-direction:column-reverse;
 }
 
-.about-img {
-  width: 260px;
-  height: 260px;
-  object-fit: cover;
-  border: 3px solid white;
-  transition: 0.4s ease;
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.about-image-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex:1;
 }
 
-/* SHAPES */
-
-.about-img.circle {
-  border-radius: 50%;
+.about-img{
+    width:260px;
+    height:260px;
+    object-fit:cover;
+    border:3px solid #fff;
+    transition:.35s ease;
 }
 
-.about-img.square {
-  border-radius: 12px;
+.about-img.circle{
+    border-radius:50%;
 }
 
-.about-img.rectangle {
-  width: 320px;
-  height: 200px;
-  border-radius: 12px;
+.about-img.square{
+    border-radius:14px;
 }
 
-.about-img.diamond {
-  transform: rotate(45deg);
+.about-img.rectangle{
+    width:320px;
+    height:220px;
+    border-radius:14px;
 }
 
-.about-img.star {
-  clip-path: polygon(
+.about-img.diamond{
+    transform:rotate(45deg);
+}
+
+.about-img.star{
+    clip-path:polygon(
     50% 0%,
     61% 35%,
     98% 35%,
@@ -102,45 +114,310 @@
     21% 91%,
     32% 57%,
     2% 35%,
-    39% 35%
-  );
+    39% 35%);
 }
 
-.about-img.hexagon {
-  clip-path: polygon(
+.about-img.hexagon{
+    clip-path:polygon(
     50% 0%,
     93% 25%,
     93% 75%,
     50% 100%,
     7% 75%,
-    7% 25%
-  );
+    7% 25%);
 }
 
-/* ================= TEXT CONTAINER ================= */
+/* =====================================================
+   TEXT
+===================================================== */
 
-.about-text {
-  max-width: 600px;
+.about-text{
+    flex:1;
+    max-width:700px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
 }
 
-/* DO NOT CONTROL FONT SIZE HERE */
-/* Typography is fully controlled by CMS */
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 900px) {
-  .about-content {
-    flex-direction: column !important;
-    text-align: center;
-  }
-
-  .about-title {
-    justify-content: center !important;
-  }
+.content-box{
+    transition:.3s;
 }
 
-@media (max-width: 500px) {
-  .about {
-    padding: 60px 6%;
-  }
+.content-box:hover{
+    transform:translateY(-6px);
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.about-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:25px;
+}
+
+.about-buttons.left{
+    justify-content:flex-start;
+}
+
+.about-buttons.center{
+    justify-content:center;
+}
+
+.about-buttons.right{
+    justify-content:flex-end;
+}
+
+.about-btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:14px 30px;
+    border-radius:30px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.about-btn.filled{
+    background:var(--accent-color);
+    color:#fff;
+}
+
+.about-btn.outline{
+    border:2px solid #fff;
+    color:#fff;
+    background:transparent;
+}
+
+.about-btn:hover{
+    transform:translateY(-4px);
+}
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.about-features{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+    margin-top:40px;
+}
+
+.feature-card{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:24px;
+    padding:40px 30px;
+    box-sizing:border-box;
+}
+
+.feature-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 50px rgba(0,0,0,.15);
+}
+
+.feature-icon{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    margin-bottom:16px;
+}
+
+.feature-card h2{
+    margin:16px 0 10px;
+    font-size:46px;
+    color:#C79B3B;
+}
+
+.feature-card p{
+    margin:0;
+}
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stat-item{
+    margin-bottom:20px;
+}
+
+.stat-item h2{
+    margin-bottom:6px;
+    font-size:42px;
+}
+
+.stat-item h4{
+    font-weight:500;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width:900px){
+
+.about{
+    padding:70px 20px;
+}
+
+.about-content{
+    flex-direction:column !important;
+    text-align:center;
+}
+
+.about-title{
+    justify-content:center !important;
+    text-align:center !important;
+}
+
+.about-text{
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+}
+
+.about-buttons{
+    justify-content:center;
+}
+
+.about-features{
+    grid-template-columns:1fr;
+    justify-items:center;
+}
+
+.feature-card{
+    width:100%;
+    max-width:480px;
+}
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:768px){
+
+.about{
+    padding:60px 16px;
+}
+
+.about-container{
+    width:100%;
+    margin:0 auto;
+}
+
+.about-title{
+    width:100%;
+    justify-content:center;
+    text-align:center;
+}
+
+.about-title h1,
+.about-title h2,
+.about-title h3{
+    width:100%;
+    text-align:center;
+}
+
+.about-text{
+    width:100%;
+    text-align:center;
+    margin:0 auto;
+}
+
+.about-buttons{
+    width:100%;
+    justify-content:center;
+}
+
+.about-btn{
+    width:100%;
+    max-width:320px;
+    text-align:center;
+}
+
+.about-features{
+    width:100%;
+    grid-template-columns:1fr;
+    justify-items:center;
+}
+
+.feature-card{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+}
+
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width:480px){
+
+.about{
+    padding:50px 12px;
+}
+
+.feature-card{
+    max-width:100%;
+    padding:28px 20px;
+}
+
+.about-img{
+    width:220px;
+    height:220px;
+}
+
+.about-img.rectangle{
+    width:100%;
+    max-width:300px;
+    height:190px;
+}
+
+}
+@media (max-width:768px){
+
+.about{
+    padding:60px 16px;
+}
+
+.about-container{
+    width:100%;
+    margin:0 auto;
+}
+
+.about-content{
+    width:100%;
+    align-items:center;
+}
+
+.about-text{
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+    text-align:center;
+}
+
+.about-features{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+    justify-items:center;
+    gap:24px;
+}
+
+.feature-card{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+}
+
 }
